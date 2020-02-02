@@ -11,4 +11,4 @@ Calculator sizing, and positioning look great, need to get buttons working next.
 Okay so I set up a lot of things, but I'm pretty stuck on the display function and holding variabes, I've done it before...I think, trying to get that working now...
 
 02/01/2020 06:05pm
-Got some assistance with storing the variables for the display, realized my switch statement was incorrect as I had the btn variable listed with no actual .id or .className to refer to. All in all not to bad for today, hope to finish soon.
+Got some assistance with storing the variables for the display, realized my switch statement was incorrect as I had the 'btn' variable listed with no actual .id or .className to refer to. All in all not to bad for today, hope to finish soon.
