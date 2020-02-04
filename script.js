@@ -3,9 +3,10 @@ const container= document.getElementById('container')
 const displayString= document.getElementById('displayString')
 const totalString= document.getElementById('totalString')
 const num= document.getElementsByClassName('num')
-var numberHolder= 0;
-var operandHolder= '';
-var equationString= '';
+let numberHolder= 0;
+let resultHolder= 0;
+let operandHolder= '';
+let equationString= '';
 
 //Basic Math functions and the main operate
 const addition= function(a, b) {
@@ -30,10 +31,18 @@ const operate= function(operand, a, b) {
 
 //other button functions
 const clear= function clear() {
-
+    numberHolder= 0;
+    totalString.innerHTML= 0;
+    displayString.innerHTML= '';
 }
 const backspace= function backspace() {
-
+    let str= numberHolder;
+    if(str=== 0|| String(str).length=== 1) {
+        clear()
+    }else {
+        numberHolder= String(str).slice(0, str.length-1)
+        totalString.innerHTML= numberHolder
+    }
 }
 const result= function calculate() {
 

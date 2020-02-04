@@ -12,3 +12,6 @@ Okay so I set up a lot of things, but I'm pretty stuck on the display function a
 
 02/01/2020 06:05pm
 Got some assistance with storing the variables for the display, realized my switch statement was incorrect as I had the 'btn' variable listed with no actual .id or .className to refer to. All in all not to bad for today, hope to finish soon.
+
+02/03/2020 09:00pm
+Skipped Sunday as I was busy, did a lot of Edabit practice instead. Started late today around 7ish due to some other obligations, fixed the calculator display, got the clear function working as well as back space, working on the actual function storing which I have an idea ready for it. Still need to work on updating the display string to update on every input...

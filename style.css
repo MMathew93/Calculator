@@ -6,24 +6,46 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 15px;
-    height: 900px;
+    height: 710px;
     width: 700px;
     padding: 45px 25px 30px 25px;
-    margin: auto;
+    margin-top: 75px;
+    margin-right: auto;
+    margin-bottom:auto;
+    margin-left:auto;
     background: #52003d;
     border: 5px solid black;
 }
 
 #displayString {
     grid-column: 1/5;
+    grid-row: 1/1;
+    width: 690px;
+    Height: 40px;
+    padding-top: 10px;
+    padding-right: 5px;
+    text-align: right;
+    font-size: 18px;
     background-color: white;
     border: 5px solid black;
 }
 
 #totalString {
-        grid-column: 2/5;
+        grid-column: 1/5;
+        grid-row: 1/1;
+        margin-top: 50px;
+        width: 690px;
+        height: 25px;
+        padding-right: 5px;
+        padding-bottom: 10px;
+        text-align: right;
+        font-size: 25px;
+        font-weight: bold;
+        overflow: hidden;
         background-color: white;
-        border: 5px solid black;
+        border-left: 5px solid black;
+        border-right: 5px solid black;
+        border-bottom: 5px solid black;
     }
 
 #clear {
