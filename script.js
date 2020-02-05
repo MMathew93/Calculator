@@ -4,9 +4,9 @@ const displayString= document.getElementById('displayString')
 const totalString= document.getElementById('totalString')
 const num= document.getElementsByClassName('num')
 let numberHolder= 0;
-let resultHolder= 0;
-let operandHolder= '';
-let equationString= '';
+let inputHolder= '';
+
+
 
 //Basic Math functions and the main operate
 const addition= function(a, b) {
@@ -30,31 +30,68 @@ const operate= function(operand, a, b) {
 }
 
 //other button functions
-const clear= function clear() {
+const clear= function () {
     numberHolder= 0;
     totalString.innerHTML= 0;
     displayString.innerHTML= '';
+    inputHolder= '';
 }
-const backspace= function backspace() {
+const backspace= function () {
     let str= numberHolder;
     if(str=== 0|| String(str).length=== 1) {
-        clear()
+        totalString.innerHTML= 0;
     }else {
         numberHolder= String(str).slice(0, str.length-1)
         totalString.innerHTML= numberHolder
     }
 }
-const result= function calculate() {
+const result= function () {
 
 }
-const saveNumber= function number(number) {
+const saveNumber= function (number) {
     if(numberHolder=== 0) {
         numberHolder = number 
     }else{numberHolder += number}
     totalString.innerHTML= numberHolder
 }
-const operator= function operand(string) {
-    display.innerHTML
+const operator= function (e) {
+    if(numberHolder=== 0 && displayString.innerHTML=== '') {
+        alert('Please enter a number first prior to an operand');
+        clear();
+    }else {
+      switch(true) {
+            case e== '+':
+                inputHolder+= String(numberHolder)
+                inputHolder+= e
+                displayString.innerHTML= inputHolder
+                numberHolder= 0
+                totalString.innerHTML= 0
+                break;
+            case e== '-':
+                inputHolder+= String(numberHolder)
+                inputHolder+= e
+                displayString.innerHTML= inputHolder
+                numberHolder= 0
+                totalString.innerHTML= 0
+                break;
+            case e== '/':
+                inputHolder+= String(numberHolder)
+                inputHolder+= e
+                displayString.innerHTML= inputHolder
+                numberHolder= 0
+                totalString.innerHTML= 0
+                break;
+            case e== '*':
+                inputHolder+= String(numberHolder)
+                inputHolder+= e
+                displayString.innerHTML= inputHolder
+                numberHolder= 0
+                totalString.innerHTML= 0
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 //onClick for container
@@ -70,7 +107,7 @@ function input(e) {
         case btn.className== 'operator':
             operator(btn.innerHTML)
             break;
-        case btn.id== 'calc':
+        case btn.id== 'equals':
             result();
             break;
         case btn.className== 'num':

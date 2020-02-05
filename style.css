@@ -81,7 +81,7 @@ body {
     font-size: 40px;
 }
 
-#calc {
+#equals {
     font-size: 36px;
     grid-column: 4;
     grid-row: 5/7;
