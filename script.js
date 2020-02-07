@@ -5,6 +5,7 @@ const totalString= document.getElementById('totalString')
 const num= document.getElementsByClassName('num')
 let numberHolder= 0;
 let inputHolder= '';
+let total= 0
 
 
 
@@ -22,7 +23,7 @@ const division= function(a, b) {
     if(a=== 0) { return 'Error'}
     return a/b;
 }
-const operate= function(operand, a, b) {
+const operate= function(a, operand, b) {
     return operand=== '+' ? addition(a, b)
           :operand=== '-' ? subtraction(a, b)
           :operand=== '*' ? multiplication(a, b) 
@@ -40,12 +41,61 @@ const backspace= function () {
     let str= numberHolder;
     if(str=== 0|| String(str).length=== 1) {
         totalString.innerHTML= 0;
+        numberHolder= 0;
     }else {
         numberHolder= String(str).slice(0, str.length-1)
         totalString.innerHTML= numberHolder
     }
 }
 const result= function () {
+inputHolder+= numberHolder
+displayString.innerHTML= inputHolder
+const regex= /[-|+|*|/]/g
+const regex2= /[\s|\d]/g
+const operandsOnly= inputHolder.replace(regex2, '').split('')
+const numbersOnly= inputHolder.split(regex).map(Number)
+
+while (operandsOnly.includes('*')=== true) {
+	let x= operandsOnly.indexOf('*')
+	operandsOnly.splice(x,1)
+	let a= numbersOnly[x]
+	let b= numbersOnly[x+1]
+	total= a*b
+	numbersOnly[x]= total
+    numbersOnly.splice((x+1),1)
+}
+
+while (operandsOnly.includes('/')=== true) {
+	let x= operandsOnly.indexOf('/')
+	operandsOnly.splice(x,1)
+	let a= numbersOnly[x]
+	let b= numbersOnly[x+1]
+	total= a/b
+	numbersOnly[x]= total
+	numbersOnly.splice((x+1),1)
+}
+
+while (operandsOnly.includes('+')=== true) {
+	let x= operandsOnly.indexOf('+')
+	operandsOnly.splice(x,1)
+	let a= numbersOnly[x]
+	let b= numbersOnly[x+1]
+	total= a+b
+	numbersOnly[x]= total
+	numbersOnly.splice((x+1),1)
+}
+
+while (operandsOnly.includes('-')=== true) {
+	let x= operandsOnly.indexOf('-')
+	operandsOnly.splice(x,1)
+	let a= numbersOnly[x]
+	let b= numbersOnly[x+1]
+	total= a-b
+	numbersOnly[x]= total
+	numbersOnly.splice((x+1),1)
+}
+
+totalString.innerHTML= String(total)
 
 }
 const saveNumber= function (number) {
@@ -93,7 +143,6 @@ const operator= function (e) {
         }
     }
 }
-
 //onClick for container
 container.addEventListener('click', input);
 //input function
@@ -105,6 +154,7 @@ function input(e) {
             clear();
             break;
         case btn.className== 'operator':
+            btn.disabled= true;
             operator(btn.innerHTML)
             break;
         case btn.id== 'equals':
