@@ -22,3 +22,6 @@ I managed to get the equations working as well as the top string to save all inp
 
 02/06/2020 10:45pm
 Calculations are working, opted for a while loop on calculations to run the whole string, unsure if that is the best method. Need to address multiple operator clicks, and multiple eneter clicks that cause the string to not clear as well as implement decimal into the calculator. I will also need to update the backspace for the decimal too.
+
+02/08/2020 10:10am
+Fixed some minor bugs mainly associated with the input hard restting to '0'. I have a few more to squash, however I have a lunch date set, will get this finished this afternoon. Need to get buttons to disable as well.
