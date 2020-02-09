@@ -25,3 +25,6 @@ Calculations are working, opted for a while loop on calculations to run the whol
 
 02/08/2020 10:10am
 Fixed some minor bugs mainly associated with the input hard restting to '0'. I have a few more to squash, however I have a lunch date set, will get this finished this afternoon. Need to get buttons to disable as well.
+
+02/08/2020 05:08pm
+Very long lunch, came back and got most if not all the bugs addressed, I may have missed 1 or two or forgot how to replicate them. Calculator is pretty much done, however the decimal does not work. I think I need to re-do my entire while code to get it working. Will review it.

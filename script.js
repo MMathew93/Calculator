@@ -3,21 +3,22 @@ const container= document.getElementById('container')
 const displayString= document.getElementById('displayString')
 const totalString= document.getElementById('totalString')
 const num= document.getElementsByClassName('num')
-let numberHolder= 0; //this holds the literal inputs of the num button clicked, linked to the totalString div
-let inputHolder= ''; //this holds the entire string of numbers and operands, linked to the displayString div
-let total= 0; //the actual output/total result when hitting calculate
+let numberHolder= 0 //this holds the literal inputs of the num button clicked, linked to the totalString div
+let inputHolder= '' //this holds the entire string of numbers and operands, linked to the displayString div
+let total= 0 //the actual output/total result when hitting calculate
 
 //this function clears all holders, and resets them back to 0 and empty
 const clear= function () {
-    numberHolder= 0;
-    totalString.innerHTML= 0;
-    displayString.innerHTML= '';
-    inputHolder= '';
-    total= 0;
+    numberHolder= 0
+    totalString.innerHTML= 0
+    displayString.innerHTML= ''
+    inputHolder= ''
+    total= 0
+    disableEquals(false)
 }
 //this function allows you to delete an incorrect number input
 const backspace= function () {
-    let str= numberHolder;
+    let str= numberHolder
     if(str=== 0||totalString.innerHTML=== Infinity||String(str).length=== 0) {
         clear()
     }else {
@@ -27,7 +28,6 @@ const backspace= function () {
 }
 //this function takes the entire input string and deconstructs it for the while loop to run through it for the result
 const result= function () {
-numberHolder= totalString.innerHTML
 inputHolder+= numberHolder
 displayString.innerHTML= inputHolder
 const regex= /[-|+|*|/]/g
@@ -75,6 +75,7 @@ totalString.innerHTML= String(total)
 numberHolder= totalString.innerHTML;
 displayString.innerHTML= ''
 inputHolder= ''
+disableEquals(true)
 }
 //this function updates the numberholder with what numbers are clicked
 const saveNumber= function (number) {
@@ -83,17 +84,26 @@ const saveNumber= function (number) {
     }else{numberHolder += number}
     totalString.innerHTML= numberHolder
 }
+//this disables and enables operands, stops spamming
+function disableAllOperands(val) {
+	document.querySelectorAll(".operator").forEach(o => o.disabled = val)
+}
+//this will disable spam clicking the equal button
+function disableEquals(val) {
+	document.querySelector("#equals").disabled= val
+}
 //this updates the inputHolder with the last numberHolder, adds the operand, and resets the numberHolder and total string back to 0
 const operator= function (e) {
     if(numberHolder=== 0 && displayString.innerHTML=== '') {
-        alert('Please enter a number first prior to an operand');
-        clear();
+        alert('Please enter a number first prior to an operand')
+        clear()
     }else {
       switch(true) {
             case e== '+':
                 inputHolder+= totalString.innerHTML
                 inputHolder+= e
                 displayString.innerHTML= inputHolder
+                disableAllOperands(true)
                 numberHolder= 0
                 totalString.innerHTML= 0
                 break;
@@ -101,6 +111,7 @@ const operator= function (e) {
                 inputHolder+= totalString.innerHTML
                 inputHolder+= e
                 displayString.innerHTML= inputHolder
+                disableAllOperands(true)
                 numberHolder= 0
                 totalString.innerHTML= 0
                 break;
@@ -108,6 +119,7 @@ const operator= function (e) {
                 inputHolder+= totalString.innerHTML
                 inputHolder+= e
                 displayString.innerHTML= inputHolder
+                disableAllOperands(true)
                 numberHolder= 0
                 totalString.innerHTML= 0
                 break;
@@ -115,6 +127,7 @@ const operator= function (e) {
                 inputHolder+= totalString.innerHTML
                 inputHolder+= e
                 displayString.innerHTML= inputHolder
+                disableAllOperands(true)
                 numberHolder= 0
                 totalString.innerHTML= 0
                 break;
@@ -128,7 +141,7 @@ container.addEventListener('click', input);
 //input function and called functions
 function input(e) {
     if(e.target.localName !== 'button') return;
-    const btn= e.target;
+    const btn= e.target
     switch(true) {
         case btn.id== 'clear':
             clear();
@@ -142,6 +155,8 @@ function input(e) {
             break;
         case btn.className== 'num':
             saveNumber(btn.innerHTML)
+            disableAllOperands(false)
+            disableEquals(false)
             break;
         case btn.id== 'backspace':
             backspace();
