@@ -6,6 +6,7 @@ const num= document.getElementsByClassName('num')
 let numberHolder= 0 //this holds the literal inputs of the num button clicked, linked to the totalString div
 let inputHolder= '' //this holds the entire string of numbers and operands, linked to the displayString div
 let total= 0 //the actual output/total result when hitting calculate
+const operandOrder= [['*','/'], ['+', '-']]
 
 //this function clears all holders, and resets them back to 0 and empty
 const clear= function () {
@@ -15,6 +16,7 @@ const clear= function () {
     inputHolder= ''
     total= 0
     disableEquals(false)
+    disableDecimal(false)
 }
 //this function allows you to delete an incorrect number input
 const backspace= function () {
@@ -31,51 +33,44 @@ const result= function () {
 inputHolder+= numberHolder
 displayString.innerHTML= inputHolder
 const regex= /[-|+|*|/]/g
-const regex2= /[\s|\d]/g
-const operandsOnly= inputHolder.replace(regex2, '').split('')
-const numbersOnly= inputHolder.split(regex).map(Number)
+const regex2= /[\s|\d|\^.]/g
+var operandsOnly= inputHolder.replace(regex2, '').split('')
+var numbersOnly= inputHolder.split(regex).map(Number)
 
-while (operandsOnly.includes('*')=== true) {
-	let x= operandsOnly.indexOf('*')
-	operandsOnly.splice(x,1)
-	let a= numbersOnly[x]
-	let b= numbersOnly[x+1]
-	total= a*b
-	numbersOnly[x]= total
-    numbersOnly.splice((x+1),1)
+for(let z= 0; z<operandOrder.length; z++){
+    for(let i= 0; i<= operandsOnly.length; i++) {
+        let j= operandOrder[z]
+        if(operandsOnly.length=== 1) {
+            i= 0
+        }
+        if(operandsOnly[i]== j[0]||operandsOnly[i]== j[1]) {
+            let x= operandsOnly.indexOf(operandsOnly[i])
+            let a= numbersOnly[x]
+            let b= numbersOnly[x+1]
+            if(operandsOnly[i]=== '*') {
+                total= a*b
+            }else if(operandsOnly[i]=== '/') {
+                total= a/b
+            }else if(operandsOnly[i]=== '+') {
+                total= a+b
+            }else if(operandsOnly[i]=== '-'){
+                total= a-b
+            }else {
+                console.log("No operands found, how did you do that?")
+            }
+            operandsOnly.splice(x,1)
+            numbersOnly[x]= total
+            numbersOnly.splice((x+1),1)
+        }
+    }
 }
-while (operandsOnly.includes('/')=== true) {
-	let x= operandsOnly.indexOf('/')
-	operandsOnly.splice(x,1)
-	let a= numbersOnly[x]
-	let b= numbersOnly[x+1]
-	total= a/b
-	numbersOnly[x]= total
-	numbersOnly.splice((x+1),1)
-}
-while (operandsOnly.includes('+')=== true) {
-	let x= operandsOnly.indexOf('+')
-	operandsOnly.splice(x,1)
-	let a= numbersOnly[x]
-	let b= numbersOnly[x+1]
-	total= a+b
-	numbersOnly[x]= total
-	numbersOnly.splice((x+1),1)
-}
-while (operandsOnly.includes('-')=== true) {
-	let x= operandsOnly.indexOf('-')
-	operandsOnly.splice(x,1)
-	let a= numbersOnly[x]
-	let b= numbersOnly[x+1]
-	total= a-b
-	numbersOnly[x]= total
-	numbersOnly.splice((x+1),1)
-}
+
 totalString.innerHTML= String(total)
 numberHolder= totalString.innerHTML;
 displayString.innerHTML= ''
 inputHolder= ''
 disableEquals(true)
+disableDecimal(true)
 }
 //this function updates the numberholder with what numbers are clicked
 const saveNumber= function (number) {
@@ -91,6 +86,10 @@ function disableAllOperands(val) {
 //this will disable spam clicking the equal button
 function disableEquals(val) {
 	document.querySelector("#equals").disabled= val
+}
+//this will disable spam clicking of the decimal
+function disableDecimal(val) {
+	document.querySelector("#decimal").disabled= val
 }
 //this updates the inputHolder with the last numberHolder, adds the operand, and resets the numberHolder and total string back to 0
 const operator= function (e) {
@@ -147,7 +146,7 @@ function input(e) {
             clear();
             break;
         case btn.className== 'operator':
-            //btn.disabled= true;
+            disableDecimal(false)
             operator(btn.innerHTML)
             break;
         case btn.id== 'equals':
@@ -161,31 +160,13 @@ function input(e) {
         case btn.id== 'backspace':
             backspace();
             break;
+        case btn.id== 'decimal':
+            saveNumber(btn.innerHTML)
+            disableAllOperands(false)
+            disableEquals(false)
+            disableDecimal(true)
+            break;
         default:
             break;
     }
 }
-
-
-
-/*Basic Math functions and the main operate
-const addition= function(a, b) {
-    return a+b;
-}
-const subtraction= function(a, b) {
-    return a-b;
-}
-const multiplication= function(a, b) {
-    return a*b;
-}
-const division= function(a, b) {
-    if(a=== 0) { return 'Error'}
-    return a/b;
-}
-const operate= function(a, operand, b) {
-    return operand=== '+' ? addition(a, b)
-          :operand=== '-' ? subtraction(a, b)
-          :operand=== '*' ? multiplication(a, b) 
-          :operand=== '/' ? division(a, b) : 'That is not a valid operator'
-}
-*/
